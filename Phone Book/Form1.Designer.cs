@@ -50,13 +50,17 @@ namespace Phone_Book
             this.prebtn = new System.Windows.Forms.Button();
             this.lastbtn = new System.Windows.Forms.Button();
             this.firstbtn = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.browsbtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 17);
+            this.label1.Location = new System.Drawing.Point(14, 43);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 20);
@@ -66,7 +70,7 @@ namespace Phone_Book
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 59);
+            this.label2.Location = new System.Drawing.Point(14, 90);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 20);
@@ -76,7 +80,7 @@ namespace Phone_Book
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 104);
+            this.label3.Location = new System.Drawing.Point(14, 135);
             this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(107, 20);
@@ -86,7 +90,7 @@ namespace Phone_Book
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 145);
+            this.label4.Location = new System.Drawing.Point(14, 176);
             this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(39, 20);
@@ -95,7 +99,7 @@ namespace Phone_Book
             // 
             // nametxt
             // 
-            this.nametxt.Location = new System.Drawing.Point(128, 17);
+            this.nametxt.Location = new System.Drawing.Point(128, 43);
             this.nametxt.Name = "nametxt";
             this.nametxt.ReadOnly = true;
             this.nametxt.Size = new System.Drawing.Size(212, 26);
@@ -103,7 +107,7 @@ namespace Phone_Book
             // 
             // familytxt
             // 
-            this.familytxt.Location = new System.Drawing.Point(128, 59);
+            this.familytxt.Location = new System.Drawing.Point(128, 90);
             this.familytxt.Name = "familytxt";
             this.familytxt.ReadOnly = true;
             this.familytxt.Size = new System.Drawing.Size(212, 26);
@@ -111,7 +115,7 @@ namespace Phone_Book
             // 
             // telltxt
             // 
-            this.telltxt.Location = new System.Drawing.Point(128, 104);
+            this.telltxt.Location = new System.Drawing.Point(128, 135);
             this.telltxt.Name = "telltxt";
             this.telltxt.ReadOnly = true;
             this.telltxt.Size = new System.Drawing.Size(212, 26);
@@ -119,7 +123,7 @@ namespace Phone_Book
             // 
             // citytxt
             // 
-            this.citytxt.Location = new System.Drawing.Point(128, 145);
+            this.citytxt.Location = new System.Drawing.Point(128, 176);
             this.citytxt.Name = "citytxt";
             this.citytxt.ReadOnly = true;
             this.citytxt.Size = new System.Drawing.Size(212, 26);
@@ -128,7 +132,7 @@ namespace Phone_Book
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(364, 20);
+            this.label5.Location = new System.Drawing.Point(649, 41);
             this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(94, 20);
@@ -138,7 +142,7 @@ namespace Phone_Book
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(387, 62);
+            this.label6.Location = new System.Drawing.Point(560, 116);
             this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 20);
@@ -154,14 +158,14 @@ namespace Phone_Book
             "family",
             "tell_number",
             "city"});
-            this.searchcombobox.Location = new System.Drawing.Point(466, 15);
+            this.searchcombobox.Location = new System.Drawing.Point(621, 64);
             this.searchcombobox.Name = "searchcombobox";
             this.searchcombobox.Size = new System.Drawing.Size(157, 28);
             this.searchcombobox.TabIndex = 10;
             // 
             // findtxt
             // 
-            this.findtxt.Location = new System.Drawing.Point(466, 59);
+            this.findtxt.Location = new System.Drawing.Point(621, 116);
             this.findtxt.Name = "findtxt";
             this.findtxt.Size = new System.Drawing.Size(157, 26);
             this.findtxt.TabIndex = 11;
@@ -170,17 +174,17 @@ namespace Phone_Book
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(368, 104);
+            this.dataGridView1.Location = new System.Drawing.Point(358, 168);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(255, 174);
+            this.dataGridView1.Size = new System.Drawing.Size(420, 174);
             this.dataGridView1.TabIndex = 12;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyUp);
             // 
             // newbtn
             // 
-            this.newbtn.Location = new System.Drawing.Point(18, 200);
+            this.newbtn.Location = new System.Drawing.Point(6, 253);
             this.newbtn.Name = "newbtn";
             this.newbtn.Size = new System.Drawing.Size(79, 31);
             this.newbtn.TabIndex = 13;
@@ -191,7 +195,7 @@ namespace Phone_Book
             // savebtn
             // 
             this.savebtn.Enabled = false;
-            this.savebtn.Location = new System.Drawing.Point(103, 200);
+            this.savebtn.Location = new System.Drawing.Point(91, 253);
             this.savebtn.Name = "savebtn";
             this.savebtn.Size = new System.Drawing.Size(79, 31);
             this.savebtn.TabIndex = 14;
@@ -201,7 +205,7 @@ namespace Phone_Book
             // 
             // editbtn
             // 
-            this.editbtn.Location = new System.Drawing.Point(188, 200);
+            this.editbtn.Location = new System.Drawing.Point(176, 253);
             this.editbtn.Name = "editbtn";
             this.editbtn.Size = new System.Drawing.Size(79, 31);
             this.editbtn.TabIndex = 15;
@@ -211,7 +215,7 @@ namespace Phone_Book
             // 
             // delbtn
             // 
-            this.delbtn.Location = new System.Drawing.Point(273, 200);
+            this.delbtn.Location = new System.Drawing.Point(261, 253);
             this.delbtn.Name = "delbtn";
             this.delbtn.Size = new System.Drawing.Size(79, 31);
             this.delbtn.TabIndex = 16;
@@ -221,7 +225,7 @@ namespace Phone_Book
             // 
             // nextbtn
             // 
-            this.nextbtn.Location = new System.Drawing.Point(18, 247);
+            this.nextbtn.Location = new System.Drawing.Point(6, 310);
             this.nextbtn.Name = "nextbtn";
             this.nextbtn.Size = new System.Drawing.Size(79, 31);
             this.nextbtn.TabIndex = 17;
@@ -231,7 +235,7 @@ namespace Phone_Book
             // 
             // prebtn
             // 
-            this.prebtn.Location = new System.Drawing.Point(103, 247);
+            this.prebtn.Location = new System.Drawing.Point(91, 310);
             this.prebtn.Name = "prebtn";
             this.prebtn.Size = new System.Drawing.Size(79, 31);
             this.prebtn.TabIndex = 18;
@@ -241,7 +245,7 @@ namespace Phone_Book
             // 
             // lastbtn
             // 
-            this.lastbtn.Location = new System.Drawing.Point(188, 247);
+            this.lastbtn.Location = new System.Drawing.Point(176, 310);
             this.lastbtn.Name = "lastbtn";
             this.lastbtn.Size = new System.Drawing.Size(79, 31);
             this.lastbtn.TabIndex = 19;
@@ -251,7 +255,7 @@ namespace Phone_Book
             // 
             // firstbtn
             // 
-            this.firstbtn.Location = new System.Drawing.Point(273, 247);
+            this.firstbtn.Location = new System.Drawing.Point(261, 310);
             this.firstbtn.Name = "firstbtn";
             this.firstbtn.Size = new System.Drawing.Size(79, 31);
             this.firstbtn.TabIndex = 20;
@@ -259,11 +263,40 @@ namespace Phone_Book
             this.firstbtn.UseVisualStyleBackColor = true;
             this.firstbtn.Click += new System.EventHandler(this.firstbtn_Click);
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox1.Location = new System.Drawing.Point(367, 17);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(144, 99);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 21;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // browsbtn
+            // 
+            this.browsbtn.Enabled = false;
+            this.browsbtn.Location = new System.Drawing.Point(383, 124);
+            this.browsbtn.Name = "browsbtn";
+            this.browsbtn.Size = new System.Drawing.Size(116, 31);
+            this.browsbtn.TabIndex = 22;
+            this.browsbtn.Text = "Brows...";
+            this.browsbtn.UseVisualStyleBackColor = true;
+            this.browsbtn.Click += new System.EventHandler(this.browsbtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(635, 290);
+            this.ClientSize = new System.Drawing.Size(790, 354);
+            this.Controls.Add(this.browsbtn);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.firstbtn);
             this.Controls.Add(this.lastbtn);
             this.Controls.Add(this.prebtn);
@@ -291,6 +324,7 @@ namespace Phone_Book
             this.Text = "Family";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -319,6 +353,9 @@ namespace Phone_Book
         private System.Windows.Forms.Button prebtn;
         private System.Windows.Forms.Button lastbtn;
         private System.Windows.Forms.Button firstbtn;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button browsbtn;
     }
 }
 

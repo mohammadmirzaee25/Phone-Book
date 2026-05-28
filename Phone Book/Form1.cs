@@ -25,6 +25,8 @@ namespace Phone_Book
             InitializeComponent();
         }
 
+        private Size originalPictureBoxSize;
+        private PictureBoxSizeMode originalSizeMode;
         private void Form1_Load(object sender, EventArgs e)
         {
             // Get the directory where your EXE is running
@@ -44,20 +46,23 @@ namespace Phone_Book
             {
                 MessageBox.Show("Connection Error: " + ex.Message);
             }
-            cr = (CurrencyManager)this.BindingContext[ds1 ,"T1"];
+            cr = (CurrencyManager)this.BindingContext[ds1, "T1"];
+            originalPictureBoxSize = pictureBox1.Size;
+            originalSizeMode = pictureBox1.SizeMode;
+
         }
-         void fillcombo(string s= "select * from PhonebookT1")
+        void fillcombo(string s = "select * from PhonebookT1")
         {
 
             cmd1.CommandText = s;
-            cmd1.Connection=conn1;
-            da1.SelectCommand= cmd1;
+            cmd1.Connection = conn1;
+            da1.SelectCommand = cmd1;
             ds1.Clear();
             da1.Fill(ds1, "T1");
-            
+
             // filling data grid view
             dataGridView1.DataBindings.Clear();
-            dataGridView1.DataBindings.Add("datasource",ds1,"T1" );
+            dataGridView1.DataBindings.Add("datasource", ds1, "T1");
 
             //filling each textn box
             nametxt.DataBindings.Clear();
@@ -68,6 +73,8 @@ namespace Phone_Book
             telltxt.DataBindings.Add("text", ds1, "T1.tell_number");
             citytxt.DataBindings.Clear();
             citytxt.DataBindings.Add("text", ds1, "T1.city");
+            pictureBox1.DataBindings.Clear();
+            pictureBox1.DataBindings.Add("imagelocation", ds1, "T1.imageurl");
 
         }
 
@@ -85,6 +92,7 @@ namespace Phone_Book
 
             savebtn.Enabled = true;
             newbtn.Enabled = false;
+            browsbtn.Enabled = true;
 
             nametxt.Focus();
         }
@@ -92,16 +100,18 @@ namespace Phone_Book
         private void savebtn_Click(object sender, EventArgs e)
         {
             SqlCommand c = new SqlCommand();
-            c.CommandText = "insert into  PhonebookT1 values (@p1 , @p2 , @p3 , @p4)";
+            c.CommandText = "insert into  PhonebookT1 values (@p1 , @p2 , @p3 , @p4 ,@p5)";
             c.Parameters.AddWithValue("p1", nametxt.Text);
             c.Parameters.AddWithValue("p2", familytxt.Text);
             c.Parameters.AddWithValue("p3", telltxt.Text);
             c.Parameters.AddWithValue("p4", citytxt.Text);
+            c.Parameters.AddWithValue("p5", copypic(pictureBox1.ImageLocation, telltxt.Text));
             c.Connection = conn1;
             c.ExecuteNonQuery();
 
             savebtn.Enabled = false;
             newbtn.Enabled = true;
+            browsbtn.Enabled = false;
 
             nametxt.ReadOnly = true;
             familytxt.ReadOnly = true;
@@ -138,7 +148,7 @@ namespace Phone_Book
 
         private void lastbtn_Click(object sender, EventArgs e)
         {
-            cr.Position = cr.Count-1;
+            cr.Position = cr.Count - 1;
             dataGridView1.CurrentCell = dataGridView1.Rows[cr.Position].Cells[0];
         }
 
@@ -155,7 +165,7 @@ namespace Phone_Book
 
             if (x == DialogResult.No)
                 return;
-                  
+
             SqlCommand c2 = new SqlCommand();
             c2.CommandText = "delete from PhonebookT1 where tell_number=@t1";
             c2.Parameters.AddWithValue("t1", telltxt.Text);
@@ -166,7 +176,7 @@ namespace Phone_Book
 
         private void findtxt_TextChanged(object sender, EventArgs e)
         {
-            if( findtxt.Text == "")
+            if (findtxt.Text == "")
             {
                 fillcombo();
             }
@@ -176,7 +186,7 @@ namespace Phone_Book
                 string field = searchcombobox.Text;
                 if (field == "")
                     field = "name";
-                string s = c2.CommandText = "select * from PhonebookT1 where " + field + " like '%" + findtxt.Text +"%'";
+                string s = c2.CommandText = "select * from PhonebookT1 where " + field + " like '%" + findtxt.Text + "%'";
                 fillcombo(s);
 
             }
@@ -185,42 +195,100 @@ namespace Phone_Book
         private void editbtn_Click(object sender, EventArgs e)
         {
 
-            if (editbtn.Text == "edit")
+            if (editbtn.Text == "Edit")
             {
                 nametxt.ReadOnly = false;
                 familytxt.ReadOnly = false;
                 telltxt.ReadOnly = true;
                 citytxt.ReadOnly = false;
+                browsbtn.Enabled = true;
+
                 editbtn.Text = "apply";
             }
 
             else
             {
-                int currentcell= dataGridView1.CurrentCell.RowIndex;
+                int currentcell = dataGridView1.CurrentCell.RowIndex;
 
                 SqlCommand c3 = new SqlCommand();
-                c3.CommandText = "update PhonebookT1 set name=@p1 , family=@p2 ,   city=@p4 where tell_number=@p3";
+                c3.CommandText = "update PhonebookT1 set name=@p1 , family=@p2 ,   city=@p4 , imageurl=@p5 where tell_number=@p3";
                 c3.Parameters.AddWithValue("p1", nametxt.Text);
                 c3.Parameters.AddWithValue("p2", familytxt.Text);
                 c3.Parameters.AddWithValue("p3", telltxt.Text);
                 c3.Parameters.AddWithValue("p4", citytxt.Text);
+                c3.Parameters.AddWithValue("p5", copypic(pictureBox1.ImageLocation, telltxt.Text));
 
                 c3.Connection = conn1;
                 c3.ExecuteNonQuery();
-                
-                
+
+
                 fillcombo();
                 cr.Position = currentcell;
-                dataGridView1.CurrentCell= dataGridView1.Rows[cr.Position].Cells[0];
+                dataGridView1.CurrentCell = dataGridView1.Rows[cr.Position].Cells[0];
 
                 nametxt.ReadOnly = true;
                 familytxt.ReadOnly = true;
                 telltxt.ReadOnly = true;
                 citytxt.ReadOnly = true;
-                editbtn.Text = "edit";
+                editbtn.Enabled = true;
+                browsbtn.Enabled = false;
+                editbtn.Text = "Edit";
 
-                
+
             }
+        }
+
+        private void browsbtn_Click(object sender, EventArgs e)
+        {
+            DialogResult x = new DialogResult();
+            x = openFileDialog1.ShowDialog();
+
+            if (x == DialogResult.Cancel)
+                return;
+            pictureBox1.ImageLocation = openFileDialog1.FileName;
+        }
+
+        string copypic(string source, string key)
+        {
+            string curpath;
+            string newpath;
+            if (source == "")
+                return null;
+            curpath = Application.StartupPath + @"\images\";
+            if (!Directory.Exists(curpath))
+                Directory.CreateDirectory(curpath);
+
+
+            newpath = curpath + key + source.Substring(source.LastIndexOf("."));
+
+            if (File.Exists(newpath))
+                File.Delete(newpath);
+
+            File.Copy(source, newpath);
+            return newpath;
+        }
+
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.SizeMode == PictureBoxSizeMode.StretchImage)
+            {
+                // Store current state
+                originalPictureBoxSize = pictureBox1.Size;
+                originalSizeMode = pictureBox1.SizeMode;
+
+                // Keep the same location, just change size to half of Form1
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox1.Size = new Size(this.Width / 2, this.Height / 2);
+                // DO NOT change the Location - it stays where it is
             }
+            else
+            {
+                // Restore original size and mode
+                pictureBox1.SizeMode = originalSizeMode;
+                pictureBox1.Size = originalPictureBoxSize;
+            }
+        }
+
     }
 }
